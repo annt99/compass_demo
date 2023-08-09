@@ -96,7 +96,7 @@ class _MyAppState extends State<MyApp> {
     double secondsDouble = (minutesDouble - minutes) * 60;
     int seconds = secondsDouble.floor();
 
-    return "$direction$degrees°${minutes.toString().padLeft(2, '0')}'${seconds.toString().padLeft(2, '0')}";
+    return "$direction$degrees°${minutes.toString().padLeft(2, '0')}'${seconds.toString().padLeft(2, '0')}\"";
   }
 
   Widget _buildCompass() {
@@ -117,21 +117,27 @@ class _MyAppState extends State<MyApp> {
         angle = '${snapshot.data!.accuracy}';
 
         if (direction == null) {
-          return const Center(
-            child: Text("Device does not have sensors !"),
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 15),
+            child: Image.asset(
+              'assets/images/img_compass2.png',
+            ),
           );
         }
 
         return Column(
           children: [
             const SizedBox(height: 20),
-            Transform.rotate(
-              angle: (direction * (math.pi / 180)) * -1,
-              child: Image.asset(
-                'assets/images/img_compass2.png',
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Transform.rotate(
+                angle: (direction * (math.pi / 180)) * -1,
+                child: Image.asset(
+                  'assets/images/img_compass2.png',
+                ),
               ),
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: 50),
             Text(
               _getFormattedAngle((direction * (math.pi / 180))),
               style: const TextStyle(
@@ -151,6 +157,16 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       home: Scaffold(
         backgroundColor: Colors.black,
+        appBar: AppBar(
+          title: const Text(
+            'Compass',
+            style: TextStyle(fontWeight: FontWeight.bold),
+          ),
+          centerTitle: false,
+          automaticallyImplyLeading: true,
+          elevation: 0,
+          backgroundColor: Colors.black,
+        ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
@@ -175,7 +191,8 @@ class _MyAppState extends State<MyApp> {
                         ),
                         Text(
                           '|',
-                          style: TextStyle(color: Colors.red, fontSize: 40),
+                          style:
+                              TextStyle(color: Color(0xffF60000), fontSize: 40),
                         )
                       ],
                     ),
@@ -188,13 +205,14 @@ class _MyAppState extends State<MyApp> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.place, color: Colors.red),
+                    const Icon(Icons.place, color: Color(0xffF60000)),
+                    const SizedBox(width: 13),
                     Text(
                       city,
                       style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                          fontSize: 18),
                     ),
                   ],
                 ),
