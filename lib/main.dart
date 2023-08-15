@@ -61,13 +61,13 @@ class _MyAppState extends State<MyApp> {
   }
 
   String _getFormattedAngle(double angle) {
-    int degrees = (angle * 180 / pi).round();
+    double degrees = (angle * 180 / pi);
     String direction = formatCompassDirection(degrees % 360);
-    int formattedDegrees = degrees % 360; // Convert to 0-359 range
+    int formattedDegrees = degrees.round() % 360; // Convert to 0-359 range
     return '$direction $formattedDegrees°';
   }
 
-  String formatCompassDirection(int degrees) {
+  String formatCompassDirection(double degrees) {
     if ((degrees >= 0 && degrees < 22.5) || degrees >= 337.5) {
       return 'North'; // North
     } else if (degrees >= 22.5 && degrees < 67.5) {
